@@ -1,108 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab 9</title>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lab 9</title>
+    <style>
+      button {
+        margin: 3px;
+      }
 
-  <style>
-    button {
-      margin: 3px;
-    }
+      button:hover {
+        cursor: pointer;
+      }
 
-    button:hover {
-      cursor: pointer;
-    }
+      #first-num,
+      #second-num {
+        width: 60px;
+      }
 
-    #first-num,
-    #second-num {
-      width: 60px;
-    }
+      output {
+        border: 1px solid gray;
+        display: block;
+        height: 18px;
+        margin-top: 5px;
+        padding: 5px;
+        width: 240px;
+      }
 
-    output {
-      border: 1px solid gray;
-      display: block;
-      height: 18px;
-      margin-top: 5px;
-      padding: 5px;
-      width: 240px;
-    }
+      main {
+        width: 800px;
+      }
 
-    main {
-      width: 800px;
-    }
+      #error-btns {
+        column-gap: 5px;
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 30px;
+        row-gap: 5px;
+      }
 
-    #error-btns {
-      column-gap: 5px;
-      display: flex;
-      flex-wrap: wrap;
-      margin-top: 30px;
-      row-gap: 5px;
-    }
+      #error-btns > * {
+        padding: 8px 2px;
+        width: 122px;
+      }
+    </style>
+  </head>
 
-    #error-btns>* {
-      padding: 8px 2px;
-      width: 122px;
-    }
-  </style>
-</head>
+  <body>
+    <main>
+      <form>
+        <fieldset>
+          <legend>Error Calculator</legend>
+          <input name="first-num" id="first-num" />
+          <select name="operator" id="operator">
+            <option>+</option>
+            <option>-</option>
+            <option>*</option>
+            <option>/</option>
+          </select>
+          <input name="second-num" id="second-num" />
+          <button id="calculate">Calculate</button>
+          <br />
+          <output></output>
+        </fieldset>
+      </form>
 
-<body>
-  <main>
-    <form>
-      <fieldset>
-        <legend>Error Calculator</legend>
-        <input name="first-num" id="first-num" />
-        <select name="operator" id="operator">
-          <option>+</option>
-          <option>-</option>
-          <option>*</option>
-          <option>/</option>
-        </select>
-        <input name="second-num" id="second-num" />
-        <button id="calculate">Calculate</button>
-        <br />
-        <output></output>
-      </fieldset>
-    </form>
+      <section id="error-btns">
+        <button>Console Log</button>
+        <button>Console Error</button>
+        <button>Console Count</button>
+        <button>Console Warn</button>
+        <button>Console Assert</button>
+        <button>Console Clear</button>
+        <button>Console Dir</button>
+        <button>Console dirxml</button>
+        <button>Console Group Start</button>
+        <button>Console Group End</button>
+        <button>Console Table</button>
+        <button>Start Timer</button>
+        <button>End Timer</button>
+        <button>Console Trace</button>
+        <button>Trigger a Global Error</button>
+      </section>
+    </main>
 
-    <section id="error-btns">
-      <button>Console Log</button>
-      <button>Console Error</button>
-      <button>Console Count</button>
-      <button>Console Warn</button>
-      <button>Console Assert</button>
-      <button>Console Clear</button>
-      <button>Console Dir</button>
-      <button>Console dirxml</button>
-      <button>Console Group Start</button>
-      <button>Console Group End</button>
-      <button>Console Table</button>
-      <button>Start Timer</button>
-      <button>End Timer</button>
-      <button>Console Trace</button>
-      <button>Trigger a Global Error</button>
-    </section>
-  </main>
+    <script>
+      let form = document.querySelector("form");
+      form.addEventListener("submit", (e) => {
+        try {
+          e.preventDefault();
+          let output = document.querySelector("output");
+          let firstNum = document.querySelector("#first-num").value;
+          let secondNum = document.querySelector("#second-num").value;
+          let operator = document.querySelector("#operator").value;
+          output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+        } catch (err) {
+          console.log("Sadly an error happened my friend");
+          throw err;
+        }
+      });
 
-  <script>
-    let form = document.querySelector('form');
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      let output = document.querySelector('output');
-      let firstNum = document.querySelector('#first-num').value;
-      let secondNum = document.querySelector('#second-num').value;
-      let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
-    });
+      let errorBtns = Array.from(
+        document.querySelectorAll("#error-btns > button")
+      );
 
-    let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
+      // Start your code here
+      // You may move this JS to another file if you wish
 
-    // Start your code here
-    // You may move this JS to another file if you wish
-  </script>
-</body>
+      let console_log_but = errorBtns[0];
 
+      console_log_but.addEventListener("click", () => {
+        console.log("Console Log Demo");
+      });
+
+      let console_error_but = errorBtns[1];
+
+      console_error_but.addEventListener("click", () => {
+        console.error("Console error Demo");
+      });
+
+      let console_count_but = errorBtns[2];
+      console_count_but.addEventListener("click", () => {
+        console.count("Count Button");
+      });
+
+      let console_warn_but = errorBtns[3];
+      console_warn_but.addEventListener("click", () => {
+        console.warn("Console warn Button");
+      });
+
+      let console_assert_but = errorBtns[4];
+      let number = 3;
+      let msg = "The number is not equal to 2";
+      console_assert_but.addEventListener("click", () => {
+        console.assert(number == 2, { number, msg });
+      });
+
+      let console_clear_but = errorBtns[5];
+      console_clear_but.addEventListener("click", () => {
+        console.clear();
+      });
+
+      let console_dir_but = errorBtns[6];
+      console_dir_but.addEventListener("click", () => {
+        console.dir(console_dir_but);
+      });
+
+      let console_dirxml_but = errorBtns[7];
+      console_dirxml_but.addEventListener("click", () => {
+        console.dirxml(console_dirxml_but);
+      });
+
+      let console_group_but = errorBtns[8];
+      console_group_but.addEventListener("click", () => {
+        console.group();
+      });
+
+      let console_groupend_but = errorBtns[9];
+      console_groupend_but.addEventListener("click", () => {
+        console.groupEnd();
+      });
+
+      let console_table_but = errorBtns[10];
+      function classes(name, num) {
+        this.name = name;
+        this.num = num;
+      }
+      let obj1 = new classes("software engineer", 110);
+      let obj2 = new classes("data structure", 100);
+      console_table_but.addEventListener("click", () => {
+        console.table([obj1, obj2]);
+      });
+
+      let console_time_but = errorBtns[11];
+      console_time_but.addEventListener("click", () => {
+        console.time("Timer Button");
+      });
+
+      let console_timeend_but = errorBtns[12];
+      console_timeend_but.addEventListener("click", () => {
+        console.timeEnd("Timer Button");
+      });
+
+      let console_trace_but = errorBtns[13];
+      function f1() {
+        f2();
+      }
+      function f2() {
+        f3();
+      }
+      function f3() {
+        console.trace();
+      }
+      console_trace_but.addEventListener("click", () => {
+        f1();
+      });
+
+      const global_err_but = errorBtns[14];
+      
+      global_err_but.addEventListener("click", function handleBtnClick() {
+        
+        try {
+          boom;
+        } catch (err) {
+          console.log("Sadly an error happened my friend");
+          throw err
+        }
+      
+      });
+      
+      
+      
+      
+    </script>
+  </body>
 </html>
